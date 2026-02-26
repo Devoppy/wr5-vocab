@@ -1,7 +1,7 @@
 {
-  "name": "WR5 – Vocabulary Audio Drill",
-  "short_name": "WR5 Vocab",
-  "start_url": "./words.html",
+  "name": "WR5 Vocabulary Audio Drill",
+  "short_name": "WR5 Drill",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#0f1115",
   "theme_color": "#0f1115",

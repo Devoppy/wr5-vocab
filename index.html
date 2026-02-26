@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1115">
+
 <meta charset="UTF-8" />
 <title>WR5 – Word Audio Drill</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <style>
+
+*{ box-sizing:border-box; }
+html, body{ overflow-x:hidden; }
+
+
   :root{
   --bg:#ffffff;
   --card:#f2f4f8;
@@ -13,6 +23,7 @@
   --accent:#4da3ff;
   --border:#e5e7eb;
 }
+
 
 body{
   margin: 0;
@@ -31,34 +42,49 @@ body.dark{
 }
 
 
+header {
+  font-family: "Segoe UI", system-ui, sans-serif;
+  letter-spacing: 0.3px;
+}
+
+
+
   header {
     padding: 16px;
     font-size: 18px;
     font-weight: 600;
     border-bottom: 1px solid var(--border);
+
   }
 
-  .container {
-    padding: 12px;
-  }
 
-  .word {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--card);
-    padding: 14px 16px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-  }
 
-  .word-text {
-    font-size: 18px;
-    letter-spacing: 0.2px;
-  }
+.container{
+  padding:12px;
+  max-width:820px;
+  margin:0 auto;
+}
+
+
+.word{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:8px;
+  background:var(--card);
+  padding:14px 16px;
+  border-radius:10px;
+  width:420px;
+}
+
+
+.word-left{
+  flex:0 1 auto;
+}
+
 
   .play {
-    font-size: 20px;
+    font-size: 24px;
     cursor: pointer;
     color: var(--accent);
     user-select: none;
@@ -75,22 +101,31 @@ body.dark{
     text-align: center;
   }
 
+
+
 header{
-  display:flex;
+  display:grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items:center;
-  justify-content:space-between;
   gap:12px;
 }
 
-#themeBtn{
+
+
+
+#themeBtn,
+#toggleSpanish{
   background:transparent;
   color:var(--text);
   border:1px solid var(--border);
-  padding:8px 10px;
+  padding:8px 12px;
   border-radius:8px;
   cursor:pointer;
+  font-size:13px;
   font-weight:600;
 }
+
+
 #themeBtn:active{ transform:scale(0.96); }
 
 textarea{
@@ -100,50 +135,176 @@ textarea{
 }
 
 
+.word-translation {
+  display: none;
+  font-size: 13px;
+  font-style: italic;
+  font-family: Calibri, Arial, sans-serif;
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: 4px;
+  opacity: 1;
+}
+
+.btn{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  font-weight:700;
+  cursor:pointer;
+  margin-bottom:14px;
+  font-size:15px;
+}
+
+.btn{
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.btn:hover{
+  background: var(--card);
+}
+
+.btn:active{
+  transform: scale(0.96);
+}
+
+
+.tool-row{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:12px 0 18px 0;
+}
+
+
+.word-text{
+  font-size:17px;
+  font-weight:600;
+}
+
+.word-translation{
+  font-size:14px;
+}
+
+
+
+*{
+  box-sizing: border-box;
+}
+
+html, body{
+  overflow-x: hidden;
+}
+
+
+#input{
+  width:100%;
+  height:120px;
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:10px;
+  margin-bottom:10px;
+  font-size:14px;
+}
+
+
+.play{
+  font-size:20px;
+  min-width:auto;
+  margin-left:6px;
+  cursor:pointer;
+}
+
+
+.title{
+  font-weight:600;
+  font-size:18px;
+}
+
+
+
+#list{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+
+
+
+.tool-row{
+  width:420px;
+  margin:12px auto 18px auto;
+}
+
+
+
+.title{
+  justify-self:start;
+}
+
+#toggleSpanish{
+  justify-self:end;
+}
+
+
+
+
+
 </style>
+
+
 </head>
+
+
 <body>
 
 <header>
-  <span>WR5 – Vocabulary Audio Drill</span>
+
+  <div class="title">WR5 – Vocabulary Audio Drill</div>
+
   <button id="themeBtn" title="Toggle theme">Dark</button>
+
+
+<button id="toggleSpanish" onclick="toggleSpanish()">
+  Show Spanish
+</button>
+
+
+
 </header>
 
 
 <div class="container">
-  <textarea id="input" placeholder="Paste words here (from Excel, one per line)" style="
-    width:100%;
-    height:120px;
-    background:#161a22;
-    color:#e8eaf0;
-    border:1px solid #222;
-    border-radius:8px;
-    padding:10px;
-    margin-bottom:10px;
-    font-size:14px;
-  "></textarea>
 
-  <button onclick="loadWords()" style="
-    width:100%;
-    padding:10px;
-    background:#4da3ff;
-    color:#000;
-    border:none;
-    border-radius:8px;
-    font-weight:600;
-    cursor:pointer;
-    margin-bottom:16px;
-  ">
-    Load words
-  </button>
+<textarea id="input" placeholder="Paste words here (from Excel, one per line)"></textarea>
+
+
+
+<div class="tool-row">
+
+<button onclick="loadWords()" class="btn">Load</button>
+<button onclick="startAutoPlay()" class="btn">Auto</button>
+<button onclick="stopAutoPlay()" class="btn">Stop</button>
+
 </div>
+
+
 
 <div class="container" id="list"></div>
 
 
-<footer>
-Tap 🔊 to hear pronunciation · Inline · No screen switching
-</footer>
 
 <script>
   const synth = window.speechSynthesis;
@@ -159,33 +320,46 @@ Tap 🔊 to hear pronunciation · Inline · No screen switching
   }
 
   function loadWords() {
-    list.innerHTML = "";
-    const raw = document.getElementById("input").value.trim();
-    if (!raw) return;
+  list.innerHTML = "";
+  const raw = document.getElementById("input").value.trim();
+  if (!raw) return;
 
-    const words = raw
-      .split(/\r?\n/)
-      .map(line => line.split("\t")[0].trim())
-      .filter(Boolean);
+  const rows = raw
+    .split(/\r?\n/)
+    .map(line => line.split("\t"))
+    .filter(parts => parts[0]);
 
-    words.forEach(word => {
-      const row = document.createElement("div");
-      row.className = "word";
+  rows.forEach(([en, es]) => {
+    const row = document.createElement("div");
+    row.className = "word";
 
-      const text = document.createElement("div");
-      text.className = "word-text";
-      text.textContent = word;
+    const textWrap = document.createElement("div");
+textWrap.className = "word-left";
 
-      const play = document.createElement("div");
-      play.className = "play";
-      play.textContent = "🔊";
-      play.onclick = () => speak(word);
 
-      row.appendChild(text);
-      row.appendChild(play);
-      list.appendChild(row);
-    });
-  }
+    const enText = document.createElement("div");
+    enText.className = "word-text";
+    enText.textContent = en.trim();
+
+    textWrap.appendChild(enText);
+
+    if (es) {
+      const esText = document.createElement("div");
+      esText.className = "word-translation";
+      esText.textContent = es.trim();
+      textWrap.appendChild(esText);
+    }
+
+    const play = document.createElement("div");
+    play.className = "play";
+    play.textContent = "🔊";
+    play.onclick = () => speak(en.trim());
+
+    row.appendChild(textWrap);
+    row.appendChild(play);
+    list.appendChild(row);
+  });
+}
 
 const themeBtn = document.getElementById("themeBtn");
 
@@ -205,3 +379,101 @@ applyTheme(localStorage.getItem("wr5_theme") || "light");
 
 
 </script>
+
+
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js");
+  });
+}
+</script>
+
+<script>
+let autoIndex = 0;
+let autoWords = [];
+let autoRunning = false;
+
+function autoPlayNext() {
+  if (!autoRunning || autoIndex >= autoWords.length) {
+    autoRunning = false;
+    return;
+  }
+
+ speechSynthesis.cancel(); 
+
+  const utter = new SpeechSynthesisUtterance(autoWords[autoIndex]);
+  utter.lang = "en-US";
+  utter.rate = 0.9;
+
+  utter.onend = () => {
+    autoIndex++;
+    setTimeout(autoPlayNext, 300);
+  };
+
+
+utter.onerror = () => {              
+  autoIndex++;
+  setTimeout(autoPlayNext, 300);
+};
+
+
+  speechSynthesis.speak(utter);
+	
+}
+
+function startAutoPlay() {
+  const raw = document.getElementById("input").value.trim();
+  if (!raw) return;
+
+  autoWords = raw
+    .split(/\r?\n/)
+    .map(line => line.split("\t")[0].trim())
+    .filter(Boolean);
+
+  autoIndex = 0;
+  autoRunning = true;      // MUST be true
+  speechSynthesis.cancel();
+  autoPlayNext();
+}
+
+
+
+function stopAutoPlay() {
+  autoRunning = false;
+  autoIndex = 0;
+  speechSynthesis.cancel();
+}
+
+
+
+
+
+
+</script>
+
+
+<script>
+let spanishVisible = false;
+
+function toggleSpanish() {
+  spanishVisible = !spanishVisible;
+
+  document.querySelectorAll(".word-translation").forEach(el => {
+    el.style.display = spanishVisible ? "block" : "none";
+  });
+
+  document.getElementById("toggleSpanish").textContent =
+    spanishVisible ? "Hide Spanish" : "Show Spanish";
+}
+</script>
+
+
+
+
+
+</body>
+</html>
+
+
+
