@@ -381,13 +381,15 @@ applyTheme(localStorage.getItem("wr5_theme") || "light");
 </script>
 
 
+
 <script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js");
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/wr5-vocab/service-worker.js', {
+    scope: '/wr5-vocab/'
   });
 }
 </script>
+
 
 <script>
 let autoIndex = 0;
