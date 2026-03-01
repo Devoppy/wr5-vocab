@@ -147,35 +147,26 @@ textarea{
 }
 
 .btn{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:10px;
-  font-weight:700;
-  cursor:pointer;
-  margin-bottom:14px;
-  font-size:15px;
-}
+  width:auto;                 
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
 
-.btn{
   background: transparent;
   color: var(--text);
   border: 1px solid var(--border);
-  padding: 8px 12px;
+
+  padding: 8px 12px;          
   border-radius: 8px;
   font-size: 13px;
   font-weight: 600;
+
   cursor: pointer;
-  margin-right: 8px;
+  margin: 0;                  
 }
 
-.btn:hover{
-  background: var(--card);
-}
-
-.btn:active{
-  transform: scale(0.96);
-}
+.btn:hover{ background: var(--card); }
+.btn:active{ transform: scale(0.96); }
 
 
 .tool-row{
@@ -220,11 +211,31 @@ html, body{
 
 
 .play{
-  font-size:20px;
-  min-width:auto;
-  margin-left:6px;
+  width:32px;
+  height:32px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+  background:transparent;
+  color:var(--text);
+
   cursor:pointer;
+  transition:background 0.18s ease, transform 0.08s ease;
 }
+
+/* Soft halo hover */
+.play:hover{
+  background:rgba(255,255,255,0.06);
+}
+
+/* Press */
+.play:active{
+  transform:scale(0.92);
+}
+
 
 
 .title{
@@ -272,7 +283,7 @@ html, body{
 
 <header>
 
-  <div class="title">WR5 – Vocabulary Audio Drill</div>
+  <div class="title">WR5 Vocab</div>
 
   <button id="themeBtn" title="Toggle theme">Dark</button>
 
@@ -288,7 +299,7 @@ html, body{
 
 <div class="container">
 
-<textarea id="input" placeholder="Paste words here (from Excel, one per line)"></textarea>
+<textarea id="input" placeholder=""></textarea>
 
 
 
@@ -352,7 +363,12 @@ textWrap.className = "word-left";
 
     const play = document.createElement("div");
     play.className = "play";
-    play.textContent = "🔊";
+play.innerHTML = `
+<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" opacity="0.85">
+  <path d="M5 9v6h4l5 5V4L9 9H5z"/>
+</svg>
+`;
+
     play.onclick = () => speak(en.trim());
 
     row.appendChild(textWrap);
